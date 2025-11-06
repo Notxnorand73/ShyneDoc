@@ -1,0 +1,59 @@
+<!--
+Tutorial.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shyne Programming Language - Tutorial</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 0; }
+        header { background: #333; color: #fff; padding: 1rem 0; text-align: center; }
+        nav { display: flex; justify-content: center; background: #444; }
+        nav a { color: #fff; padding: 0.5rem 1rem; text-decoration: none; }
+        nav a:hover { background: #555; }
+        .container { padding: 2rem; max-width: 800px; margin: auto; }
+        pre { background: #eee; padding: 1rem; border: 1px solid #ccc; overflow-x: auto; }
+        footer { background: #333; color: #fff; text-align: center; padding: 1rem 0; position: fixed; bottom: 0; width: 100%; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Shyne Programming Language</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="tutorial.html">Tutorial</a>
+        <a href="download.html">Download</a>
+        <a href="doc.html">Docs</a>
+    </nav>
+    <div class="container">
+        <h2>Getting Started with Shyne</h2>
+        <h3>Step 1: Installation</h3>
+        <p>
+            Make sure you have downloaded the appropriate executable for your operating system from the <a href="download.html">download page</a>.
+        </p>
+        <h3>Step 2: Your First Program</h3>
+        <p>
+            Create a file named `hello.shy` with the following code:
+        </p>
+        <pre><code>
+out("Hello, Shyne World!");
+        </code></pre>
+        <h3>Step 3: Running the Code</h3>
+        <p>
+            Open your terminal or command prompt, navigate to the directory where you saved `hello.shy`, and run the following command:
+        </p>
+        <pre><code>
+shyne hello.shy
+        </code></pre>
+        <p>
+            You should see "Hello, Shyne World!" printed to your console.
+        </p>
+    </div>
+    <footer>
+        <p>&copy; 2025 Shyne Programming Language</p>
+    </footer>
+</body>
+</html>
