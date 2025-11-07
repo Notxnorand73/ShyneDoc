@@ -38,9 +38,14 @@ Download.html
                 <strong>Source Code (C++):</strong> <a href="shyne.cpp" download>Download Source Code (.cpp)</a>
             </li>
         </ul>
-        <ul style="list-style-type: none; font-family: monospace;">
-            <li></li>
-        </ul>
+        <script>
+            fetch('Shyne program.txt')
+              .then(response => response.text())
+              .then(data => {
+            document.getElementById('shyne-code').textContent = data;
+          })
+          .catch(err => console.error('Error loading file:', err));
+        </script>
     </div>
     <footer>
         <p>&copy; 2025 Shyne Programming Language</p>
