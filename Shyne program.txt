@@ -1,0 +1,110 @@
+system_online:true
+debug_mode:true
+runtime_id:"EXP-47-Δ"
+log_buffer:["Booting System...", "Loading Modules...", "Verifying Integrity..."]
+heartbeat_interval:0.05
+
+#------------------- Core Data Models -----------------------------#
+class Module
+    func init(name, version, status)
+        self.name:name
+        self.version:version
+        self.status:status
+        self.errors:[]
+    end
+    func report()
+        out(i"[MODULE] {self.name} v{self.version} → {self.status}")
+        if self.errors.length>0
+            out(i"   ERRORS: {self.errors}")
+        end
+    end
+    func trigger_error(err_type)
+        self.errors.add(err_type)
+        self.status:"FAULT"
+    end
+end
+
+modules:[
+    Module.new("I/O", "1.2.3", "ONLINE"),
+    Module.new("Graphics", "2.0.5", "ONLINE"),
+    Module.new("Security", "3.1.4", "ONLINE"),
+    Module.new("Storage", "1.9.8", "IDLE"),
+    Module.new("Network", "4.0.0", "ONLINE")
+]
+
+#------------------- Utility Functions ----------------------------#
+func log_message(msg)
+    log_buffer.add(msg)
+    out(i"[LOG] {msg}")
+end
+
+func checksum(data)
+    local total:0
+    repeat data.length:i
+        total:total + asccode(data{i})
+    end
+    send total % 256
+end
+
+func random_module_error()
+    mod:modules{random(modules.length)}
+    mod.trigger_error("CriticalFailure")
+    log_message(i"Module {mod.name} triggered an error!")
+end
+
+func system_scan()
+    out(">> Initiating System Scan...")
+    repeat modules.length:i
+        modules{i}.report
+        sleep(0.02)
+    end
+    cs:checksum(runtime_id)
+    out(i"[CHECKSUM] {cs}")
+end
+
+#------------------- Runtime Threads -------------------------------#
+func heartbeat()
+    repeat 20:t
+        if not system_online
+            break
+        end
+        out(i"[HEARTBEAT] Cycle {t} : Stable ✓")
+        if random()>0.85
+            random_module_error()
+        end
+        sleep(heartbeat_interval)
+    end
+end
+
+func fs_check()
+    files:["core.sys","config.cfg","lib.star","data.db"]
+    repeat files.length:i
+        if exists files{i}
+            out(i"[FS] {files{i}} FOUND")
+        else
+            out(i"[FS] {files{i}} MISSING")
+            raise ValueError
+        end
+    end
+end
+
+func network_ping()
+    repeat 5:i
+        out(i"[NET] Ping {i} → {random(100…500)}ms")
+        sleep(0.03)
+    end
+end
+
+#------------------- Main Execution -------------------------------#
+try
+    log_message("SYSTEM BOOT SEQUENCE INITIATED")
+    system_scan()
+    heartbeat()
+    fs_check()
+    network_ping()
+error E
+    out(i"[ERROR] Exception caught: {typeof(E)}")
+end
+
+log_message("SYSTEM RUNTIME COMPLETE")
+out("…SHYNE CORE OFFLINE…")
