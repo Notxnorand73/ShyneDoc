@@ -42,9 +42,16 @@ out("Hello, Shyne World!")
         <p>
             You should see "Hello, Shyne World!" printed to your console.
         </p>
-        <ul style="list-style-type: none; font-family: monospace;">
-            <li></li>
-        </ul>
+        <div id="shyne-code" style="font-family: monospace; white-space: pre;"></div>
+
+        <script>
+            fetch('Shyne program.txt')
+              .then(response => response.text())
+              .then(data => {
+            document.getElementById('shyne-code').textContent = data;
+          })
+          .catch(err => console.error('Error loading file:', err));
+        </script>
     </div>
     <footer>
         <p>&copy; 2025 Shyne Programming Language</p>
