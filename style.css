@@ -31,7 +31,7 @@ nav a {
     transition: 0.3s;
 }
 nav a:hover, nav a.active {
-    background: #FFD700; /* Yellow accent */
+    background: #886300; /* Yellow accent */
     color: #222;
     border-radius: 4px;
 }
